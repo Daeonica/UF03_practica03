@@ -5,18 +5,32 @@
     <h1>Asistentes del evento "{{ $event->title }}"</h1>
     <hr>
     @if ($attendees->count() > 0)
-    <ul>
-        @foreach ($attendees as $attendee)
-        <li>
-            {{ $attendee->name }} ({{ $attendee->email }})
-            <form action="{{ route('events.destroyAttendee', [$event->id, $attendee->id]) }}" method="POST" class="d-inline">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
-        </li>
-        @endforeach
-    </ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo electrónico</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($attendees as $attendee)
+            <tr>
+                <td>{{ $attendee->id }}</td>
+                <td>{{ $attendee->name }}</td>
+                <td>{{ $attendee->email }}</td>
+                <td>
+                    <form action="{{ route('events.destroyAttendee', [$event->id, $attendee->id]) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
     @else
     <p>No hay asistentes registrados para este evento.</p>
     @endif

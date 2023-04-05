@@ -17,9 +17,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::paginate(3);
         return view('events.events', compact('events'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -56,21 +57,24 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, $id)
-    {
-        $search = $request->input('search');
+    public function show(Request $request, $id = null)
+{
+    $search = $request->input('search');
 
-        $event = Event::query()
-            ->where('id', $id)
-            ->where(function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%');
-            })
-            ->with('attendees')
-            ->firstOrFail();
+    $event = Event::query()
+        ->when($id, function ($query) use ($id) {
+            return $query->where('id', $id);
+        })
+        ->where(function ($query) use ($search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+        })
+        ->with('attendees')
+        ->first();
 
-        return view('events.show', compact('event'));
-    }
+    return view('events.show', compact('event'));
+}
+
 
 
 

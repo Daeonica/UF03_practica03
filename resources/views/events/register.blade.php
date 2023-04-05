@@ -27,5 +27,8 @@
 
         <button type="submit" class="btn btn-primary">Registrar</button>
     </form>
+    <div class="d-flex justify-content-center">
+        <a href="{{ route('events.events', $event->id) }}" class="btn btn-secondary">Volver a los eventos</a>
+    </div>
 </div>
 @endsection

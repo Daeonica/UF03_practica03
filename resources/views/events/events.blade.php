@@ -42,7 +42,7 @@
 
 
             <div class="d-flex justify-content-between">
-                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary">Editar</a>
+                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary">Editar evento</a>
                 <a href="{{ route('events.register', $event->id) }}" class="btn btn-success">Registrar asistentes</a>
                 <form action="{{ route('events.showAttendees', $event->id) }}" method="GET">
                     @csrf
@@ -58,6 +58,9 @@
     </div>
 
     @endforeach
+    <div class="d-flex justify-content-center">
+        {{ $events->links() }}
+    </div>
 </div>
 
 @endsection
