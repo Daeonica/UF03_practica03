@@ -4,9 +4,6 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-md-12">
-            <div class="d-flex justify-content-between">
-                <a href="{{ route('events.create') }}" class="btn btn-primary">Crear Evento</a>
-            </div>
             <form action="{{ route('events.show') }}" method="GET">
                 <div class="input-group mt-3">
                     <input type="text" name="search" class="form-control" placeholder="Buscar evento por título o descripción">
@@ -46,13 +43,17 @@
                 <a href="{{ route('events.register', $event->id) }}" class="btn btn-success">Registrar asistentes</a>
                 <form action="{{ route('events.showAttendees', $event->id) }}" method="GET">
                     @csrf
-                    <button type="submit" class="btn btn-danger">Eliminar asistentes</button>
+                    <button type="submit" class="btn btn-warning">Asistentes</button>
                 </form>
-                <form action="{{ route('events.destroy', $event->id) }}" method="POST">
+                <form action="{{ route('events.destroy', $event->id) }}" method="POST" id="delete-form-{{ $event->id }}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este asistente?')">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar evento</button>
+                    <button type="submit" class="btn btn-danger" >Eliminar evento</button>
                 </form>
+
+                
+
+
             </div>
         </div>
     </div>

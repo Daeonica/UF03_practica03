@@ -21,7 +21,7 @@
                 <td>{{ $attendee->name }}</td>
                 <td>{{ $attendee->email }}</td>
                 <td>
-                    <form action="{{ route('events.destroyAttendee', [$event->id, $attendee->id]) }}" method="POST" class="d-inline">
+                    <form action="{{ route('events.destroyAttendee', [$event->id, $attendee->id]) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este asistente?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>
