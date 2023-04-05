@@ -6,7 +6,6 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserEventsAttendee;
-use App\Models\Attendee;
 
 
 
@@ -149,4 +148,27 @@ class EventController extends Controller
         // Redireccionar al usuario a la página del evento
         return redirect()->route('events.events');
     }
+    public function showAttendees($id)
+    {
+        $event = Event::with('attendees')->findOrFail($id);
+    
+        $attendees = $event->attendees;
+    
+        return view('events.showAttendees', [
+            'event' => $event,
+            'attendees' => $attendees
+        ]);
+    }
+    public function destroyAttendee($eventId, $attendeeId)
+{
+    $event = Event::findOrFail($eventId);
+    $attendee = UserEventsAttendee::where('event_id', $eventId)->where('id', $attendeeId)->firstOrFail();
+    $attendee->delete();
+    return redirect()->route('events.showAttendees', $event->id);
+}
+
+    
+    
+
+    
 }

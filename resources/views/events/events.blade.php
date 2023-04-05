@@ -30,25 +30,28 @@
             <p class="card-text">{{ \Carbon\Carbon::parse($event->date)->format('d/m/Y') }}</p>
             <p class="card-text">{{ $event->location }}</p>
             <h2>Asistentes registrados</h2>
-@if ($event->attendees->count() > 0)
-<ul>
-    @foreach ($event->attendees as $attendee)
-    <li>{{ $attendee->name }} ({{ $attendee->email }})</li>
-    @endforeach
-</ul>
-@else
-<p class="card-text">Aún no hay asistentes</p>
-@endif
-
+            @if ($event->attendees->count() > 0)
+            <ul>
+                @foreach ($event->attendees as $attendee)
+                <li>{{ $attendee->name }} ({{ $attendee->email }})</li>
+                @endforeach
+            </ul>
+            @else
+            <p class="card-text">Aún no hay asistentes</p>
+            @endif
 
 
             <div class="d-flex justify-content-between">
                 <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary">Editar</a>
                 <a href="{{ route('events.register', $event->id) }}" class="btn btn-success">Registrar asistentes</a>
+                <form action="{{ route('events.showAttendees', $event->id) }}" method="GET">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Eliminar asistentes</button>
+                </form>
                 <form action="{{ route('events.destroy', $event->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar evento</button>
                 </form>
             </div>
         </div>

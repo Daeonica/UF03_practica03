@@ -24,17 +24,10 @@ Route::prefix('events')->group(function () {
     Route::get('/show', [EventController::class, 'show'])->name('events.show');
     Route::get('/{id}/register', [EventController::class, 'register'])->name('events.register');
     Route::post('/{id}/attendees', [EventController::class, 'storeAttendee'])->name('events.storeAttendee');
-
-
+    Route::get('/{id}/attendees', [EventController::class, 'showAttendees'])->name('events.showAttendees');
+    Route::delete('/{id}/attendees/{attendeeId}', [EventController::class, 'destroyAttendee'])->name('events.destroyAttendee');
 
 });
 
 
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
