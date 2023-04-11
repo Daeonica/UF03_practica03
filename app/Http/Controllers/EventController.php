@@ -18,12 +18,13 @@ class EventController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $user = auth()->user(); // obtenemos el usuario logueado
+{
+    $user = auth()->user();
+    $events = Event::where('user_id', $user->id)->paginate(6);
+    return view('events.events', compact('events'));
+}
 
-        $events = Event::paginate(6);
-        return view('events.events', compact('events'));
-    }
+    
 
 
     /**
