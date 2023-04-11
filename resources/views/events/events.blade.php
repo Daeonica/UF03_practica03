@@ -4,9 +4,6 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-md-12">
-            <div class="d-flex justify-content-between">
-                <a href="{{ route('events.create') }}" class="btn btn-primary">Crear Evento</a>
-            </div>
             <form action="{{ route('events.show') }}" method="GET">
                 <div class="input-group mt-3">
                     <input type="text" name="search" class="form-control" placeholder="Buscar evento por título o descripción">
@@ -43,12 +40,12 @@
 
 
             <div class="d-flex justify-content-between">
-                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary">Editar</a>
+                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary">Editar eventos</a>
                 <a href="{{ route('events.storeAttendee', $event->id) }}" class="btn btn-success">Asistentes</a>
                 <form action="{{ route('events.destroy', $event->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar eventos</button>
                 </form>
             </div>
         </div>
