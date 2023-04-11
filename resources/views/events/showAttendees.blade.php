@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
     <h1>Asistentes del evento "{{ $event->title }}"</h1>
+    <div class="d-flex justify-content-center">
+        <a href="{{ route('events.register', $event->id) }}" class="btn btn-success">Registrar asistentes</a>
+    </div>
     <hr>
     @if ($attendees->count() > 0)
     <table class="table">

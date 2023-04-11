@@ -6,6 +6,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserEventsAttendee;
+use App\Models\User;
+
 
 
 
@@ -17,7 +19,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::paginate(3);
+        $user = auth()->user(); // obtenemos el usuario logueado
+
+        $events = Event::paginate(6);
         return view('events.events', compact('events'));
     }
 
@@ -92,12 +96,11 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'date' => 'required',
-            'location' => 'required', // Validación para el campo location
-
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'nullable',
+            'date' => 'required|date|after_or_equal:2023-04-01',
+            'location' => 'required|max:255',
         ]);
 
         $event->title = $request->input('title');

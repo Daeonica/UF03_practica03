@@ -22,6 +22,11 @@ class UserEventsAttendee extends Model
     {
         return $this->belongsTo(Event::class);
     }
+    public static function getAttendeeEventsByUserId($userId)
+{
+    return self::where('user_id', $userId)->with('event')->get();
+}
+
 }
 
 
