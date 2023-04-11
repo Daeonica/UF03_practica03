@@ -55,9 +55,7 @@
     </div>
 
     @endforeach
-    <div class="d-flex justify-content-center">
-        {{ $events->links() }}
-    </div>
+   
 </div>
 
 @endsection
