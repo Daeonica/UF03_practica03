@@ -20,7 +20,7 @@ class EventController extends Controller
         $events = Event::paginate(3);
         return view('events.events', compact('events'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -58,22 +58,22 @@ class EventController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request, $id = null)
-{
-    $search = $request->input('search');
+    {
+        $search = $request->input('search');
 
-    $event = Event::query()
-        ->when($id, function ($query) use ($id) {
-            return $query->where('id', $id);
-        })
-        ->where(function ($query) use ($search) {
-            $query->where('title', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%');
-        })
-        ->with('attendees')
-        ->first();
+        $event = Event::query()
+            ->when($id, function ($query) use ($id) {
+                return $query->where('id', $id);
+            })
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            })
+            ->with('attendees')
+            ->first();
 
-    return view('events.show', compact('event'));
-}
+        return view('events.show', compact('event'));
+    }
 
 
 
@@ -155,24 +155,19 @@ class EventController extends Controller
     public function showAttendees($id)
     {
         $event = Event::with('attendees')->findOrFail($id);
-    
+
         $attendees = $event->attendees;
-    
+
         return view('events.showAttendees', [
             'event' => $event,
             'attendees' => $attendees
         ]);
     }
     public function destroyAttendee($eventId, $attendeeId)
-{
-    $event = Event::findOrFail($eventId);
-    $attendee = UserEventsAttendee::where('event_id', $eventId)->where('id', $attendeeId)->firstOrFail();
-    $attendee->delete();
-    return redirect()->route('events.showAttendees', $event->id);
-}
-
-    
-    
-
-    
+    {
+        $event = Event::findOrFail($eventId);
+        $attendee = UserEventsAttendee::where('event_id', $eventId)->where('id', $attendeeId)->firstOrFail();
+        $attendee->delete();
+        return redirect()->route('events.showAttendees', $event->id);
+    }
 }
