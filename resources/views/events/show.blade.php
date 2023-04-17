@@ -31,13 +31,15 @@
                     <button type="submit" class="btn btn-danger">Eliminar evento</button>
                 </form>
             </div>
+            <br>
             <div class="d-flex justify-content-center">
-        <a href="{{ route('events.events', $event->id) }}" class="btn btn-secondary">Volver a los eventos</a>
-    </div>
+                <a href="{{ route('events.events', $event->id) }}" class="btn btn-secondary">Volver a los eventos</a>
+            </div>
         </div>
     </div>
-    @else
-    <p>No se encontraron eventos que coincidan con la búsqueda.</p>
-    @endif
+</div>
+@else
+<p>No se encontraron eventos que coincidan con la búsqueda.</p>
+@endif
 </div>
 @endsection
