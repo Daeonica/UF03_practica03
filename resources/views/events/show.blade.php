@@ -24,11 +24,7 @@
 
             <div class="d-flex justify-content-between">
                 <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary">Editar evento</a>
-                <a href="{{ route('events.register', $event->id) }}" class="btn btn-success">Registrar asistentes</a>
-                <form action="{{ route('events.showAttendees', $event->id) }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Eliminar asistentes</button>
-                </form>
+                <a href="{{ route('events.storeAttendee', $event->id) }}" class="btn btn-success">Asistentes</a>
                 <form action="{{ route('events.destroy', $event->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
